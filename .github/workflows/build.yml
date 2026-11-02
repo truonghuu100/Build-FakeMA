@@ -19,7 +19,7 @@ jobs:
       - name: Compile DLL
         shell: cmd
         run: |
-          cl.exe /O2 /LD /EHsc FakeMAC.cpp /I "%VCPKG_INSTALLATION_ROOT%\packages\minhook_x86-windows\include" "%VCPKG_INSTALLATION_ROOT%\packages\minhook_x86-windows\lib\minhook.lib" iphlpapi.lib /link /OUT:FakeMAC.dll /MACHINE:X86
+          cl.exe /O2 /LD /EHsc FakeMAC.cpp /I "%VCPKG_INSTALLATION_ROOT%\installed\x86-windows\include" "%VCPKG_INSTALLATION_ROOT%\installed\x86-windows\lib\minhook.lib" iphlpapi.lib /link /OUT:FakeMAC.dll /MACHINE:X86
           
       - name: Upload DLL
         uses: actions/upload-artifact@v4
