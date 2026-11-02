@@ -8,8 +8,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Install MinHook via vcpkg
-        run: vcpkg install minhook:x86-windows
+      - name: Download MinHook Source
+        run: git clone https://github.com/TsudaKageyu/minhook.git
         
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
@@ -19,7 +19,7 @@ jobs:
       - name: Compile DLL
         shell: cmd
         run: |
-          cl.exe /O2 /LD /EHsc FakeMAC.cpp /I "%VCPKG_INSTALLATION_ROOT%\installed\x86-windows\include" "%VCPKG_INSTALLATION_ROOT%\installed\x86-windows\lib\minhook.lib" iphlpapi.lib /link /OUT:FakeMAC.dll /MACHINE:X86
+          cl.exe /O2 /LD /EHsc FakeMAC.cpp minhook\src\buffer.c minhook\src\hook.c minhook\src\trampoline.c minhook\src\hde\hde32.c minhook\src\hde\hde64.c /I "minhook\include" iphlpapi.lib /link /OUT:FakeMAC.dll /MACHINE:X86
           
       - name: Upload DLL
         uses: actions/upload-artifact@v4
